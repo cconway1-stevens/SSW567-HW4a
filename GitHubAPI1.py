@@ -1,5 +1,7 @@
 import requests
 import json
+import unittest
+from GitHubAPI1 import get_repos_and_commits
 def get_repos_and_commits(github_id):
     # Make the API call to get the list of repositories for the given GitHub ID
     repos_url = f"https://api.github.com/users/{github_id}/repos"
@@ -36,5 +38,14 @@ if repos_and_commits is not None:
     for repo_name, commit_count in repos_and_commits:
         print(f"Repo: {repo_name} Number of commits: {commit_count}")
 
+# create unit test cases for the above functions
+# Path: GitHubAPI1_test.py
 
+class TestGitHubAPI1(unittest.TestCase):
+    def test_get_repos_and_commits(self):
+        github_id = "cconway1-stevens"
+        repos_and_commits = get_repos_and_commits(github_id)
+        self.assertEqual(len(repos_and_commits), 1)
+        self.assertEqual(repos_and_commits[0][0], "GitHubAPI1")
+        self.assertEqual(repos_and_commits[0][1], 1)
 
