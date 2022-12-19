@@ -8,7 +8,7 @@ jobs:
     steps:
       - checkout
       - run: 
-          command: |
+          command: 
             pip install pytest
             pytest --junitxml=test-results/junit.xml GitHubAPI1.py
       - store_test_results:
