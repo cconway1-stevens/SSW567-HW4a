@@ -42,10 +42,44 @@ if repos_and_commits is not None:
 # Path: GitHubAPI1_test.py
 
 class TestGitHubAPI1(unittest.TestCase):
-    def test_get_repos_and_commits(self):
-        github_id = "cconway1-stevens"
-        repos_and_commits = get_repos_and_commits(github_id)
-        self.assertEqual(len(repos_and_commits), 1)
-        self.assertEqual(repos_and_commits[0][0], "GitHubAPI1")
-        self.assertEqual(repos_and_commits[0][1], 1)
+    def testIDIsString(self):
+        # test to see if the input GitHub ID is a string
+        ID = "cconway1-stevens"
+        self.assertIs(type(ID), str)
+    def testOutput(self):
+        # test to see if the output of the given ID is correct
+        output = ['Error getting commits for repository cconway1-stevens: 409',
+          'Error getting commits for repository personalsite: 409',
+          'Error getting commits for repository test-HW3: 409',
+          'Repo: Complexity Number of commits: 30',
+          'Repo: Complexity-1 Number of commits: 30',
+          'Repo: E_115-Final Number of commits: 1',
+          'Repo: HW_SSW345 Number of commits: 2',
+          'Repo: SSW345 Number of commits: 12',
+          'Repo: SSW567-HW4a Number of commits: 2',
+          'Repo: SSW_567 Number of commits: 28',
+          'Repo: stevens-ssw-567-Final Number of commits: 13',
+          'Repo: Testsite Number of commits: 1']
+
+        self.assertEqual(github_user("cconway1-stevens"), output)
+
+    def testRepoError(self):
+        # test to see if the repository exists for given ID
+        ID = "asdasdasdasd"
+        self.assertEqual(github_user(ID), "Error obtaining repository names!")
+    def testCommitError(self):
+        # test to see if the commits exist in the repository for given ID
+        self.assertEqual(github_user("SSWSample"), "Error obtaining number of commits!")
+        self.assertEqual(github_user("cconway1-stevens"), ['Error getting commits for repository cconway1-stevens: 409',
+          'Error getting commits for repository personalsite: 409',
+          'Error getting commits for repository test-HW3: 409',
+          'Repo: Complexity Number of commits: 30',
+          'Repo: Complexity-1 Number of commits: 30',
+          'Repo: E_115-Final Number of commits: 1',
+          'Repo: HW_SSW345 Number of commits: 2',
+          'Repo: SSW345 Number of commits: 12',
+          'Repo: SSW567-HW4a Number of commits: 2',
+          'Repo: SSW_567 Number of commits: 28',
+          'Repo: stevens-ssw-567-Final Number of commits: 13',
+          'Repo: Testsite Number of commits: 1'])
 
